@@ -18,10 +18,10 @@ const Students = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>Student first name</th>
-                        <th>Student last name</th>
-                        <th>Student year of birth</th>
-                        <th>Student address</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Year of Birth</th>
+                        <th>Address</th>
                         <td><Link to="/students/0">Add new</Link></td>
                     </tr>
                 </thead>

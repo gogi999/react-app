@@ -35,7 +35,7 @@ const Course = ({ match, history }) => {
                 console.log('There was error during save data!!!');
             });
         } else {
-            update('course', id, course, data => {
+            update('courses', id, course, data => {
                 if (data) return history.push('/courses');
                 console.log('There was error during save data!!!');
             });
@@ -71,7 +71,7 @@ const Course = ({ match, history }) => {
                     />
                 </div>
                 <hr />
-                {id !== '0' && (
+                {id !== "0" && (
                     <div className="left">
                         <button type="button" onClick={del}>DELETE</button>
                     </div>

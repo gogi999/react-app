@@ -4,6 +4,7 @@ import Courses from './Courses';
 import Course from './Course';
 import Home from './Home';
 import Students from './Students';
+import Student from './Student';
 
 export {
     AppHeader,
@@ -11,5 +12,6 @@ export {
     Courses,
     Course,
     Home,
-    Students
+    Students,
+    Student
 }
