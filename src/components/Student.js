@@ -22,10 +22,7 @@ const Student = ({ match, history }) => {
     function changeHandler(e) {
         setStudent({
             ...student,
-            [e.target.firstName]: e.target.value,
-            [e.target.lastName]: e.target.value,
-            [e.target.yearOfBirth]: e.target.value,
-            [e.target.address]: e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -34,6 +31,7 @@ const Student = ({ match, history }) => {
     }
 
     const save = () => {
+        delete student._id;
         if (id === '0') {
             insert('students', student, data => {
                 if (data) return history.push('/students');
@@ -58,7 +56,7 @@ const Student = ({ match, history }) => {
             <h2>Students</h2>
             <form className="input-form">
                 <div style={{ margin: "12px 0" }}>
-                    <label htmlFor="name">First name: </label>
+                    <label htmlFor="firstName">First name: </label>
                     <input
                         type="text"
                         name="firstName"
@@ -67,7 +65,7 @@ const Student = ({ match, history }) => {
                     />
                 </div>
                 <div style={{ margin: "12px 0" }}>
-                    <label htmlFor="name">Last name: </label>
+                    <label htmlFor="lastName">Last name: </label>
                     <input
                         type="text"
                         name="lastName"
@@ -76,7 +74,7 @@ const Student = ({ match, history }) => {
                     />
                 </div>
                 <div style={{ margin: "12px 0" }}>
-                    <label htmlFor="points">Year of Birth: </label>
+                    <label htmlFor="yearOfBirth">Year of Birth: </label>
                     <input
                         type="text"
                         name="yearOfBirth"
@@ -85,7 +83,7 @@ const Student = ({ match, history }) => {
                     />
                 </div>
                 <div style={{ margin: "12px 0" }}>
-                    <label htmlFor="name">Address: </label>
+                    <label htmlFor="address">Address: </label>
                     <input
                         type="text"
                         name="address"

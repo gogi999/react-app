@@ -30,6 +30,7 @@ const Course = ({ match, history }) => {
 
     const save = () => {
         if (id === '0') {
+            delete course._id;
             insert('courses', course, data => {
                 if (data) return history.push('/courses');
                 console.log('There was error during save data!!!');
