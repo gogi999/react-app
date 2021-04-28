@@ -31,7 +31,7 @@ const Student = ({ match, history }) => {
     }
 
     const save = () => {
-        delete student._id;
+        student._id = undefined;
         if (id === '0') {
             insert('students', student, data => {
                 if (data) return history.push('/students');
