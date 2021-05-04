@@ -9,6 +9,9 @@ const Course = ({ match, history }) => {
         points: 0
     });
 
+    const [nameEmpty, setNameEmpty] = useState(false);
+    const [pointsEmpty, setPointsEmpty] = useState(false);
+
     useEffect(() => {
         if (id !== '0') {
             read('courses', id, data => {
@@ -18,6 +21,14 @@ const Course = ({ match, history }) => {
     }, [id]);
 
     function changeHandler(e) {
+        if (e.target.value && e.target.name === 'name') {
+            setNameEmpty(false);
+        }
+
+        if (e.target.value && e.target.name === 'points') {
+            setPointsEmpty(false);
+        }
+
         setCourse({
             ...course,
             [e.target.name]: e.target.value
@@ -30,12 +41,38 @@ const Course = ({ match, history }) => {
 
     const save = () => {
         if (id === '0') {
+            if (!course.name && !course.points) {
+                setNameEmpty(true);
+                setPointsEmpty(true);
+                return;
+            }
+            if (!course.name) {
+                setNameEmpty(true);
+                return;
+            }
+            if (!course.points) {
+                setPointsEmpty(true);
+                return;
+            }
             course._id = undefined;
             insert('courses', course, data => {
                 if (data) return history.push('/courses');
                 console.log('There was error during save data!!!');
             });
         } else {
+            if (!course.name && !course.points) {
+                setNameEmpty(true);
+                setPointsEmpty(true);
+                return;
+            }
+            if (!course.name) {
+                setNameEmpty(true);
+                return;
+            }
+            if (!course.points) {
+                setPointsEmpty(true);
+                return;
+            }
             update('courses', id, course, data => {
                 if (data) return history.push('/courses');
                 console.log('There was error during save data!!!');
@@ -60,16 +97,20 @@ const Course = ({ match, history }) => {
                         name="name"
                         value={course.name}
                         onChange={changeHandler}
+                        required
                     />
+                    {nameEmpty && <p>This field is required</p>}
                 </div>
                 <div style={{ margin: "12px 0" }}>
                     <label htmlFor="points">Course points: </label>
                     <input
-                        type="text"
+                        type="number"
                         name="points"
                         value={course.points}
                         onChange={changeHandler}
+                        required
                     />
+                    {pointsEmpty && <p>This field is required</p>}
                 </div>
                 <hr />
                 {id !== "0" && (

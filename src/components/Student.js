@@ -18,8 +18,23 @@ const Student = ({ match, history }) => {
             });
         }
     }, [id]);
+    const [firstNameEmpty, setFirstNameEmpty] = useState(false);
+    const [lastNameEmpty, setLastNameEmpty] = useState(false);
+    const [yearEmpty, setYearEmpty] = useState(false);
 
     function changeHandler(e) {
+        if (e.target.value && e.target.name === 'firstName') {
+            setFirstNameEmpty(false);
+        }
+
+        if (e.target.value && e.target.name === 'lastName') {
+            setLastNameEmpty(false);
+        }
+
+        if (e.target.value && e.target.name === 'yearOfBirth') {
+            setYearEmpty(false);
+        }
+
         setStudent({
             ...student,
             [e.target.name]: e.target.value
@@ -31,13 +46,79 @@ const Student = ({ match, history }) => {
     }
 
     const save = () => {
-        student._id = undefined;
         if (id === '0') {
+            if (!student.firstName && !student.lastName && !student.yearOfBirth) {
+                setFirstNameEmpty(true);
+                setLastNameEmpty(true);
+                setYearEmpty(true);
+                return;
+            }
+            if (!student.firstName && !student.lastName) {
+                setFirstNameEmpty(true);
+                setLastNameEmpty(true);
+                return;
+            }
+            if (!student.firstName && !student.yearOfBirth) {
+                setFirstNameEmpty(true);
+                setYearEmpty(true);
+                return;
+            }
+            if (!student.lastName && !student.yearOfBirth) {
+                setLastNameEmpty(true);
+                setYearEmpty(true);
+                return;
+            }
+            if (!student.firstName) {
+                setFirstNameEmpty(true);
+                return;
+            }
+            if (!student.lastName) {
+                setLastNameEmpty(true);
+                return;
+            }
+            if (!student.yearOfBirth) {
+                setYearEmpty(true);
+                return;
+            }
+            student._id = undefined;
             insert('students', student, data => {
                 if (data) return history.push('/students');
                 console.log('There was error during save data!!!');
             });
         } else {
+            if (!student.firstName && !student.lastName && !student.yearOfBirth) {
+                setFirstNameEmpty(true);
+                setLastNameEmpty(true);
+                setYearEmpty(true);
+                return;
+            }
+            if (!student.firstName && !student.lastName) {
+                setFirstNameEmpty(true);
+                setLastNameEmpty(true);
+                return;
+            }
+            if (!student.firstName && !student.yearOfBirth) {
+                setFirstNameEmpty(true);
+                setYearEmpty(true);
+                return;
+            }
+            if (!student.lastName && !student.yearOfBirth) {
+                setLastNameEmpty(true);
+                setYearEmpty(true);
+                return;
+            }
+            if (!student.firstName) {
+                setFirstNameEmpty(true);
+                return;
+            }
+            if (!student.lastName) {
+                setLastNameEmpty(true);
+                return;
+            }
+            if (!student.yearOfBirth) {
+                setYearEmpty(true);
+                return;
+            }
             update('students', id, student, data => {
                 if (data) return history.push('/students');
                 console.log('There was error during save data!!!');
@@ -62,7 +143,9 @@ const Student = ({ match, history }) => {
                         name="firstName"
                         value={student.firstName}
                         onChange={changeHandler}
+                        required
                     />
+                    {firstNameEmpty && <p>This field is required</p>}
                 </div>
                 <div style={{ margin: "12px 0" }}>
                     <label htmlFor="lastName">Last name: </label>
@@ -71,16 +154,20 @@ const Student = ({ match, history }) => {
                         name="lastName"
                         value={student.lastName}
                         onChange={changeHandler}
+                        required
                     />
+                    {lastNameEmpty && <p>This field is required</p>}
                 </div>
                 <div style={{ margin: "12px 0" }}>
                     <label htmlFor="yearOfBirth">Year of Birth: </label>
                     <input
-                        type="text"
+                        type="number"
                         name="yearOfBirth"
                         value={student.yearOfBirth}
                         onChange={changeHandler}
+                        required
                     />
+                    {yearEmpty && <p>This field is required</p>}
                 </div>
                 <div style={{ margin: "12px 0" }}>
                     <label htmlFor="address">Address: </label>
